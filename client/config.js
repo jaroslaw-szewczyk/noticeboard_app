@@ -1,0 +1,2 @@
+export const API_ADS = (process.env.NODE_ENV === 'production') ? '/api/ads' : 'http://localhost:8000/api/ads';
+export const AUTH = (process.env.NODE_ENV === 'production') ? '/auth' : 'http://localhost:8000/auth';

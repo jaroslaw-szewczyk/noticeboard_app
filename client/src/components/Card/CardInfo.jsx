@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const CardInfo = () => {
+const CardInfo = ({name, location}) => {
   return (
     <Card sx={{ maxWidth: 345, mt: 2 }}>
       <CardMedia
@@ -20,10 +20,10 @@ const CardInfo = () => {
       />
       <CardContent >
         <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: 'center' }}>
-          Lizard
+          {name}
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Gdańsk
+          {location}
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'space-between' }}>
