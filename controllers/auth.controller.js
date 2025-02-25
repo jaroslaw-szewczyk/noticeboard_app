@@ -7,44 +7,51 @@ const getImageFileType = require('../utils/getImageFileType');
 exports.newUser = async (req, res) => {
   try {
 
-    const { userName, password, phoneNumber } = req.body;
+    const { username, password, phoneNumber } = req.body;
   
+    
+    if(!req.file){
+      return res.status(400).send({ message: 'Bad request' });
+    }
+
     const fileType =  req.file ? await getImageFileType(req.file) : 'unknown';
 
-    if(userName && typeof userName === 'string' 
+    if(username && typeof username === 'string' 
       && password && typeof password === 'string' 
       && phoneNumber && typeof phoneNumber === 'string'
       && req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType)){
-
-        const checkIfUserExist = await Author.findOne({ userName })
+        
+        const checkIfUserExist = await Author.findOne({ username })
         if(checkIfUserExist) {
+          fs.unlinkSync(`./public/uploads/${req.file.filename}`);
           return res.status(409).send({ message: 'User alredy exists' });
         }
 
         const user = await Author.create({ 
-          userName, 
+          username, 
           password: await bcrypt.hash(password, 10), 
           avatar: req.file.filename, 
           phoneNumber: phoneNumber 
         });
-        res.status(201).send({ message: 'User created: ' + user.userName });
+        res.status(201).send({ message: 'User created: ' + user.username });
       } else {
-        res.status(400).send({ message: 'Bad request' });
         fs.unlinkSync(`./public/uploads/${req.file.filename}`);
+        res.status(400).send({ message: 'Bad request' });
       }
 
   } catch(err) {
+    fs.unlinkSync(`./public/uploads/${req.file.filename}`);
     res.status(500).send({ message: err.message });
   }
 };
 
 exports.loginUser = async (req, res) => {
   try {
-    const { userName, password } = req.body;
+    const { username, password } = req.body;
 
-    if(userName && typeof userName === 'string' && password && typeof password === 'string'){
-      const user = await Author.findOne({ userName });
-
+    if(username && typeof username === 'string' && password && typeof password === 'string'){
+      const user = await Author.findOne({ username });
+      
       if(!user) {
         res.status(400).send({ message: 'Login or password are incorect'})
       } else {
@@ -66,8 +73,8 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
-  const {_id, userName, phoneNumber, avatar} = req.session.login
-  res.status(200).send({ _id, userName, phoneNumber, avatar});
+  const {_id, username, phoneNumber, avatar} = req.session.login
+  res.status(200).send({ _id, username, phoneNumber, avatar});
 };
 
 exports.logOut = async (req, res) => {

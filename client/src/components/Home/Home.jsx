@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loadAdsRequest } from "../../redux/ads.redux";
+import { loadAdsRequest } from "../../redux/adsRedux";
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from "@mui/material";
 
@@ -7,11 +7,7 @@ import CardInfo from "../Card/CardInfo";
 
 const Home = () => {
 
-  const [temp, setTemp] = useState([{ id: 1, title: 'Dog', location: 'Gdańsk' }, { id: 2, title: 'Cat', location: 'Warszawa' }, { id: 3, title: 'Lizard', location: 'Katowice' }])
-
-  const dispatch = useDispatch();
-
-  dispatch(loadAdsRequest());
+  const [temp, setTemp] = useState([{ id: 1, title: 'Dog', location: 'Gdańsk' }, { id: 2, title: 'Cat', location: 'Warszawa' }, { id: 3, title: 'Lizard', location: 'Katowice' }]);
 
   console.log(temp);
 

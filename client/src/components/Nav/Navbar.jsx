@@ -22,7 +22,7 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
 
-  const pages = ['login', 'sign up', 'add', 'edit'];
+  const pages = ['login', 'register', 'add', 'edit'];
 
   return (
     <AppBar position="static" sx={{ mt: 2, borderRadius: '8px' }}>
