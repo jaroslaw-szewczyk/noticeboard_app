@@ -8,8 +8,14 @@ const LOAD_ADS = createActionName('LOAD_ADS');
 const ERROR_REQUEST = createActionName('ERROR_REQUEST');
 
 // export const startRequest = payload => ({ payload, type: START_REQUEST });
-export const loadAds = payload => ({ payload, type: LOAD_ADS });
-export const errorRequest = payload => ({ payload, type: ERROR_REQUEST });
+export const loadAds = payload => ({ 
+  payload, 
+  type: LOAD_ADS 
+});
+export const errorRequest = payload => ({ 
+  payload, 
+  type: ERROR_REQUEST 
+});
 
 export const loadAdsRequest = () => {
   return async dispatch => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
@@ -11,8 +11,13 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-const Navbar = () => {
+const Navbar = ({signInProp}) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [signIn, setSignIn] = useState(signInProp);
+
+  useEffect(() => {
+    setSignIn(signInProp);
+  }, [signInProp]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -72,11 +77,16 @@ const Navbar = () => {
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end'}}>
           {pages.map((page) => (
             <NavLink to={`/${page}`}>
-              <Button key={page} sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
+              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
                 {page}
               </Button>
             </NavLink>
           ))}
+          {signIn && (
+            <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
+              Log out
+            </Button>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

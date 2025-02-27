@@ -48,7 +48,7 @@ exports.newUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-
+    
     if(username && typeof username === 'string' && password && typeof password === 'string'){
       const user = await Author.findOne({ username });
       
@@ -56,8 +56,8 @@ exports.loginUser = async (req, res) => {
         res.status(400).send({ message: 'Login or password are incorect'})
       } else {
         if(bcrypt.compareSync(password, user.password)) {
-          req.session.login = user;
-  
+          req.session.user = user;
+          
           res.status(200).send({ message: 'Login successful' });
         } else {
           res.status(400).send({ message: 'Login or password are incorect'})
@@ -73,7 +73,10 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
-  const {_id, username, phoneNumber, avatar} = req.session.login
+  if (!req.session.user) {
+    return res.status(401).json({ error: "Brak sesji" });
+  }
+  const {_id, username, phoneNumber, avatar} = req.session.user;
   res.status(200).send({ _id, username, phoneNumber, avatar});
 };
 

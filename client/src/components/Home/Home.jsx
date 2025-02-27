@@ -9,7 +9,6 @@ const Home = () => {
 
   const [temp, setTemp] = useState([{ id: 1, title: 'Dog', location: 'Gdańsk' }, { id: 2, title: 'Cat', location: 'Warszawa' }, { id: 3, title: 'Lizard', location: 'Katowice' }]);
 
-  console.log(temp);
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
