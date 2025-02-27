@@ -7,56 +7,59 @@ const Add = () => {
 
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [date, setDate] = useState('');
-  const [photo, setPhoto] = useState(null);
+  const [image, setImage] = useState(null);
   const [price, setPrice] = useState(0);
   const [location, setLocation] = useState('');
   const [status, setStatus] = useState(null);
   
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // const fd = new FormData();
-    // fd.append('username', username );
-    // fd.append('password', password );
-    // fd.append('phoneNumber', phoneNumber );
-    // fd.append('avatar', avatar );
-  
-    // const options = {
-    //   method: 'POST',
-    //   body: fd,
-    // }
+
+    const now = new Date();
+    const formattedDate = now.toISOString().split("T")[0];
+
+    const fd = new FormData();
+    fd.append('title', title );
+    fd.append('text', text );
+    fd.append('date', formattedDate );
+    fd.append('image', image );
+    fd.append('price', price );
+    fd.append('location', location );
+
+    const options = {
+      method: 'POST',
+      body: fd,
+      credentials: "include"
+    }
     
-    // setStatus('loading');
-    // fetch(`${API_URL}/auth/register`, options)
-    //   .then( res => {
-    //     if(res.status === 201) {
-    //       setStatus('success');
-    //     } else if (res.status === 400) {
-    //       setStatus('clientError');
-    //     } else if (res.status === 409) {
-    //       setStatus('loginError');
-    //     } else {
-    //       setStatus('serverError');
-    //     }
-    //   }) 
-    //   .catch(err => {
-    //     setStatus('serverError');
-    // });
+    await fetch(`${API_URL}/api/ads`, options)
+      .then( res => {
+        if(res.status === 200) {
+          setStatus('success');
+        } else if (res.status === 400) {
+          setStatus('clientError');
+        } else if (res.status === 401) {
+          setStatus('loginError');
+        } else {
+          setStatus('serverError');
+        }
+      }) 
+      .catch(err => {
+        setStatus('serverError');
+    });
   }
 
   return (
     <Container  maxWidth='xs'>
       <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2 }}>
         <Typography variant="h5" component="h2" gutterBottom>
-          Sign up
+          Add advertisement
         </Typography>
     
-        { status === 'success' && <Alert severity="success">You have been successfully registerd! You can now log in...</Alert> }
+        { status === 'success' && <Alert severity="success">You have added a new advertisement </Alert> }
         { status === 'clientError' && <Alert severity="error">You have to fill all the fields.</Alert> }
-        { status === 'loginError' && <Alert severity="warning">Login alredy in use.</Alert> }
+        { status === 'loginError' && <Alert severity="warning">You must be logged in to add an advertisement.</Alert> }
         { status === 'serverError' && <Alert severity="error">Smething went wrong...</Alert> }
-        { status === 'loading' && <CircularProgress /> }
              
         <form onSubmit={handleSubmit}>
             <TextField
@@ -73,6 +76,8 @@ const Add = () => {
             label="Text"
             name="text"
             type="text"
+            multiline
+            rows={4}
             value={ text }
             onChange={ e => setText(e.target.value) }
             margin="normal"
@@ -82,7 +87,7 @@ const Add = () => {
             fullWidth
             name="Photo"
             type="file"
-            onChange={e => setPhoto(e.target.files[0])}
+            onChange={e => setImage(e.target.files[0])}
             margin="normal"  
           />
           <TextField

@@ -35,8 +35,8 @@ exports.search = async (req, res) => {
 exports.addOne = async (req, res) => {
   try {
     const { title, text, date, price, location } = req.body;
-    const author = req.session.login._id;
-
+    const author = req.session.user.id;
+    
     const fileType =  req.file ? await getImageFileType(req.file) : 'unknown';
   
     if(title && typeof title === 'string' 
@@ -63,6 +63,7 @@ exports.addOne = async (req, res) => {
       return res.status(400).send({ message: 'Bad request' });
     } 
   } catch(err) {
+    fs.unlinkSync(`./public/uploads/${req.file.filename}`);
     return res.status(500).json({ message: err });
   }
 };

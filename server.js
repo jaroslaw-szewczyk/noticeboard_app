@@ -15,7 +15,11 @@ const app = express();
 const noticesRoutes = require('./routes/notices.routes');
 const authRoutes = require('./routes/auth.routes');
 
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:3000", // Adres Twojego frontendu
+    credentials: true, // Wymagane do obsługi sesji i ciasteczek
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -28,7 +32,7 @@ app.use(session({
   secret: `${secret}`, 
   store: MongoStore.create({ mongoUrl: MONGO_URL }), 
   resave: false, 
-  saveUninitialized: false 
+  saveUninitialized: false,
 }));
 
 app.use('/api/ads', noticesRoutes);

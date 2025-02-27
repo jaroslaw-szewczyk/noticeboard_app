@@ -30,12 +30,7 @@ export const errorRequest = payload => ({
 export const loadUserRequest = () => {
   return async dispatch => {
     try {
-     const options = {
-        method: 'GET',
-        credentials: 'include'
-      };
-
-      let res = await axios.get(`${API_URL}/auth/user`, options);
+      let res = await axios.get(`${API_URL}/auth/user`, { withCredentials: true });
       dispatch(loadUser(res.data));
     } catch (e) {
       dispatch(errorRequest({ name: 'LOAD_ADS', error: e.message }));
