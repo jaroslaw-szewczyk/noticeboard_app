@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
-import Add from './components/add/add';
+import Add from './components/Add/add';
 import Edit from './components/edit/Edit';
 import LogOut from './components/LogOut/LogOut'
 
@@ -42,9 +42,9 @@ const App = () => {
       <Navbar signInProp={signIn}/>
       <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login signInProp={signIn} />} />
       <Route path="/register" element={<SignUp />} />
-      <Route path="/add" element={<Add />} />
+      <Route path="/add" element={<Add signInProp={signIn}/>} />
       <Route path="/edit" element={<Edit />} />
       <Route path="/logout" element={<LogOut />} />
       </Routes>

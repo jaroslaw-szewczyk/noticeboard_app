@@ -1,18 +1,25 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../../config";
 import { logIn } from "../../redux/usersRedux";
 import { TextField, Button, Container, Typography, Box, CircularProgress, Alert } from "@mui/material";
 
-const LogIn = () => {
+const LogIn = ({ signInProp }) => {
 
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] =useState('');
   const [ status, setStatus ] = useState(null);
-
+  const [signIn, setSignIn] = useState(signInProp);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSignIn(signInProp);
+    console.log(signIn)
+  }, [signInProp]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,7 +52,12 @@ const LogIn = () => {
   
   return (
     <Container  maxWidth='xs'>
-      <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2 }}>
+      {
+        signIn 
+        ? 
+        <Alert severity="success" sx={{mt: 2}}>You are already logged in.</Alert> 
+        :
+        <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2 }}>
           <Typography variant="h5" component="h2" gutterBottom>
             Log in
           </Typography>
@@ -54,7 +66,7 @@ const LogIn = () => {
           { status === 'clientError' && <Alert severity="error">Login or password are incorect.</Alert> }
           { status === 'serverError' && <Alert severity="error">Smething went wrong...</Alert> }
           { status === 'loading' && <CircularProgress /> } 
-         
+        
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
@@ -80,7 +92,9 @@ const LogIn = () => {
             </Button>
           </form>
         </Box>
-      </Container>
+      }
+
+    </Container>
   )
 };
 

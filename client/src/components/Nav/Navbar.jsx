@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-const Navbar = ({signInProp}) => {
+const Navbar = ({ signInProp }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [signIn, setSignIn] = useState(signInProp);
 
@@ -27,19 +27,19 @@ const Navbar = ({signInProp}) => {
     setAnchorElNav(null);
   };
 
-  const pages = ['login', 'register', 'add', 'edit'];
+  const pages = ['login', 'add', 'edit'];
 
   return (
     <AppBar position="static" sx={{ mt: 2, borderRadius: '8px' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-
-        {/* Przycisk 'Login' po lewej stronie na małych ekranach */}
-        <Box sx={{ display: { xs: 'block'} }}>
-          <NavLink to='/'><Button sx={{ color: 'white' }}>home  </Button></NavLink>
+        <Box sx={{ display: 'block' }}>
+          <NavLink to="/">
+            <Button sx={{ color: 'white' }}>Home</Button>
+          </NavLink>
         </Box>
 
-        {/* Ikona menu po prawej stronie na małych ekranach */}
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
+        {/* Menu mobilne */}
+        <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
           <IconButton
             size="large"
             aria-label="menu"
@@ -67,25 +67,46 @@ const Navbar = ({signInProp}) => {
           >
             {pages.map((page) => (
               <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>{page}</Typography>
+                <NavLink to={`/${page}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
+                    {page}
+                  </Typography>
+                </NavLink>
               </MenuItem>
             ))}
+            <MenuItem onClick={handleCloseNavMenu}>
+              {signIn ? (
+                <NavLink to="/logout" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Log out</Typography>
+                </NavLink>
+              ) : (
+                <NavLink to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Register</Typography>
+                </NavLink>
+              )}
+            </MenuItem>
           </Menu>
         </Box>
 
         {/* Menu na dużych ekranach */}
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end'}}>
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
           {pages.map((page) => (
-            <NavLink to={`/${page}`}>
+            <NavLink key={page} to={`/${page}`}>
               <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
                 {page}
               </Button>
             </NavLink>
           ))}
-          {signIn && (
+          {signIn ? (
             <NavLink to={'/logout'}>
               <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
                 Log out
+              </Button>
+            </NavLink>
+          ) : (
+            <NavLink to={'/register'}>
+              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
+                Register
               </Button>
             </NavLink>
           )}

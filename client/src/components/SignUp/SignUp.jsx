@@ -15,10 +15,6 @@ const SignUp = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    console.log(username, password, phoneNumber, avatar)
-
-    console.log('avatar: ', typeof avatar)
-
     const fd = new FormData();
     fd.append('username', username );
     fd.append('password', password );
