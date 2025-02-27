@@ -7,6 +7,7 @@ import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import Add from './components/add/add';
 import Edit from './components/edit/Edit';
+import LogOut from './components/LogOut/LogOut'
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
@@ -45,6 +46,7 @@ const App = () => {
       <Route path="/register" element={<SignUp />} />
       <Route path="/add" element={<Add />} />
       <Route path="/edit" element={<Edit />} />
+      <Route path="/logout" element={<LogOut />} />
       </Routes>
       
     </Container>

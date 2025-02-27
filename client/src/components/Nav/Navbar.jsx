@@ -83,9 +83,11 @@ const Navbar = ({signInProp}) => {
             </NavLink>
           ))}
           {signIn && (
-            <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
-              Log out
-            </Button>
+            <NavLink to={'/logout'}>
+              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
+                Log out
+              </Button>
+            </NavLink>
           )}
         </Box>
       </Toolbar>
