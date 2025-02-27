@@ -102,7 +102,7 @@ const SignUp = () => {
               
             />
             <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-              Zarejestruj się
+              Sign up
             </Button>
           </form>
         </Box>
