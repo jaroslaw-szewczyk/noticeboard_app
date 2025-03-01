@@ -7,7 +7,7 @@ const createActionName = name => `app/ads/${name}`;
 const LOAD_ADS = createActionName('LOAD_ADS');
 const ERROR_REQUEST = createActionName('ERROR_REQUEST');
 
-export const getAds = ({ ads }) => ads;
+export const getAds = ({ ads }) => ads.ads;
 
 export const loadAds = payload => ({ 
   payload, 

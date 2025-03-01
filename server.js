@@ -16,8 +16,7 @@ const noticesRoutes = require('./routes/notices.routes');
 const authRoutes = require('./routes/auth.routes');
 
 app.use(cors({
-    origin: "http://localhost:3000", // Adres Twojego frontendu
-    credentials: true, // Wymagane do obsługi sesji i ciasteczek
+    credentials: true, 
   })
 );
 app.use(express.urlencoded({ extended: true }));
@@ -38,11 +37,11 @@ app.use(session({
 app.use('/api/ads', noticesRoutes);
 app.use('/auth', authRoutes);
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '/client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+});
 
 app.use(express.static(path.join(__dirname, '/public')));
 

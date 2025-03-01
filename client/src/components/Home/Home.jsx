@@ -7,8 +7,8 @@ import { getAds } from "../../redux/adsRedux";
 
 const Home = () => {
  
-  const ads = useSelector(getAds);
-
+  const ads = useSelector(getAds) || [];
+  console.log('ads', ads);
   return (
     <Box 
     display="flex"
