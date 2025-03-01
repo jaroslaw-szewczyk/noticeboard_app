@@ -27,8 +27,6 @@ const Navbar = ({ signInProp }) => {
     setAnchorElNav(null);
   };
 
-  const pages = ['login', 'add', 'edit'];
-
   return (
     <AppBar position="static" sx={{ mt: 2, borderRadius: '8px' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -65,24 +63,34 @@ const Navbar = ({ signInProp }) => {
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
           >
-            {pages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <NavLink to={`/${page}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
-                    {page}
-                  </Typography>
+            {signIn && (
+              <MenuItem onClick={handleCloseNavMenu}>
+                <NavLink to="/add" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Add</Typography>
                 </NavLink>
               </MenuItem>
-            ))}
+            )}
+            {signIn && (
+              <MenuItem onClick={handleCloseNavMenu}>
+                <NavLink to="/edit" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Edit</Typography>
+                </NavLink>
+              </MenuItem>
+            )}
             <MenuItem onClick={handleCloseNavMenu}>
               {signIn ? (
                 <NavLink to="/logout" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Log out</Typography>
                 </NavLink>
               ) : (
-                <NavLink to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Register</Typography>
-                </NavLink>
+                <>
+                  <NavLink to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Log in</Typography>
+                  </NavLink>
+                  <NavLink to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Register</Typography>
+                  </NavLink>
+                </>
               )}
             </MenuItem>
           </Menu>
@@ -90,25 +98,29 @@ const Navbar = ({ signInProp }) => {
 
         {/* Menu na dużych ekranach */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
-          {pages.map((page) => (
-            <NavLink key={page} to={`/${page}`}>
-              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
-                {page}
-              </Button>
+          {signIn && (
+            <NavLink to="/add">
+              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>Add</Button>
             </NavLink>
-          ))}
+          )}
+           {signIn && (
+            <NavLink to="/edit">
+              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>Edit</Button>
+            </NavLink>
+          )}
           {signIn ? (
-            <NavLink to={'/logout'}>
-              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
-                Log out
-              </Button>
+            <NavLink to="/logout">
+              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>Log out</Button>
             </NavLink>
           ) : (
-            <NavLink to={'/register'}>
-              <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>
-                Register
-              </Button>
-            </NavLink>
+            <>
+              <NavLink to="/login">
+                <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>Log in</Button>
+              </NavLink>
+              <NavLink to="/register">
+                <Button sx={{ my: 2, color: 'white', textTransform: 'uppercase' }}>Register</Button>
+              </NavLink>
+            </>
           )}
         </Box>
       </Toolbar>

@@ -12,7 +12,7 @@ router.route('/search/:searchPhrase').get(NoticeController.search);
 
 router.route('/').post(authMiddleware, imageUpload.single('image'), NoticeController.addOne);
 
-router.route('/:id').put(authMiddleware, NoticeController.updateOne);
+router.route('/:id').put(authMiddleware, imageUpload.single('image'), NoticeController.updateOne);
 
 router.route('/:id').delete(authMiddleware, NoticeController.delete);
 

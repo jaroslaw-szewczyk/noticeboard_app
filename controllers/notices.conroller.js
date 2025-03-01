@@ -69,20 +69,25 @@ exports.addOne = async (req, res) => {
 };
 
 exports.updateOne = async (req, res) => {
+ 
   try {
     const updateNotice = {};
-    const { title, text, date, price, location, image, author } = req.body;
-  
+    const fileType =  req.file ? await getImageFileType(req.file) : 'unknown';
+    
+    const dep = await Notice.findById(req.params.id);
+
+    const { title, text, date, price, location} = req.body;
+
     if (title) updateNotice.title = title;
     if (text) updateNotice.text = text;
     if (date) updateNotice.date = date;
     if (price) updateNotice.price = price;
     if (location) updateNotice.location = location;
-    if (image) updateNotice.image = image;
-    if (author) updateNotice.author = author;
+    if (req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType)){
+      fs.unlinkSync(`./public/uploads/${dep.image}`);
+      updateNotice.image = req.file.filename;
+    }
     
-    const dep = await Notice.findById(req.params.id);
-    console.log(req.body);
     if(dep) {
       await Notice.updateOne({ _id: req.params.id }, { $set: updateNotice });
       res.json({ message: 'OK' });

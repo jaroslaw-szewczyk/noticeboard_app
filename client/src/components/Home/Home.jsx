@@ -1,26 +1,12 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
-import CardInfo from "../Card/CardInfo";
-
-import { loadAdsRequest, getAds } from "../../redux/adsRedux";
+import CardInfo from "../CardInfo/CardInfo";
+import { getAds } from "../../redux/adsRedux";
 
 const Home = () => {
-  const [temp, setTemp] = useState([
-    { id: 1, title: 'Dog', location: 'Gdańsk' },
-    { id: 2, title: 'Cat', location: 'Warszawa' },
-    { id: 3, title: 'Lizard', location: 'Katowice' }
-  ]);
-
+ 
   const ads = useSelector(getAds);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadAdsRequest());
-  });
-
 
   return (
     <Box
@@ -37,7 +23,7 @@ const Home = () => {
           display="flex"
           justifyContent="center"
         >
-          <CardInfo name={ad.title} location={ad.location} image={ad.image} />
+          <CardInfo id={ad._id} name={ad.title} location={ad.location} image={ad.image} />
         </Box>
       ))}
     </Box>
