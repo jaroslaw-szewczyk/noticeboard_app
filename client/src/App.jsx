@@ -15,6 +15,7 @@ import Navbar from './components/Nav/Navbar';
 import CardDeets from './components/CardDeets/CardDeets';
 import EditAd from './components/EditAd/EditAd';
 import Delete from './components/Delete/delete';
+import SearchResult from './components/SearchResult/SearchResult';
 
 import { loadUserRequest } from './redux/usersRedux';
 import { loadAdsRequest } from "./redux/adsRedux";
@@ -49,12 +50,13 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/add" element={<Add signInProp={signIn}/>} />
+        <Route path="/add" element={<Add />} />
         <Route path="/edit" element={<Edit />} />
         <Route path="/edit/:id" element={<EditAd />} />
         <Route path="/delete/:id" element={<Delete />} />
         <Route path="/logout" element={<LogOut />} />
         <Route path="/cardDeets/:id" element={<CardDeets signInProp={signIn}/>} />
+        <Route path="/SearchResult" element={<SearchResult />} />
       </Routes>
       
     </Container>

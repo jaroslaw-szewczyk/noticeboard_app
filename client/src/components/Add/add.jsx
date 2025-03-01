@@ -4,7 +4,7 @@ import { TextField, Button, Container, Typography, Box, CircularProgress, Alert 
 
 import { API_URL } from "../../../config";
 
-const Add = ({ signInProp }) => {
+const Add = () => {
 
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -12,11 +12,6 @@ const Add = ({ signInProp }) => {
   const [price, setPrice] = useState(0);
   const [location, setLocation] = useState('');
   const [status, setStatus] = useState(null);
-  const [signIn, setSignIn] = useState(signInProp);
-
-  useEffect(() => {
-      setSignIn(signInProp);
-    }, [signInProp]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
