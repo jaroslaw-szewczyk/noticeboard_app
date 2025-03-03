@@ -57,16 +57,14 @@ exports.loginUser = async (req, res) => {
         if(bcrypt.compareSync(password, user.password)) {
           
           req.session.user = { 
-            id: user._id.toString(), // Upewnij się, że ID jest stringiem
+            id: user._id.toString(),
             username: user.username,
             phoneNumber: user.phoneNumber,
             avatar: user.avatar
           };
 
-          req.session.cookie.expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
-          req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 30;
-
-          console.log('loginUser user:', req.session.user )
+          // req.session.cookie.expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+          
 
           res.status(200).send({ message: 'Login successful' });
         } else {
@@ -87,8 +85,6 @@ exports.getUser = async (req, res) => {
     return res.status(401).json({ error: "Brak sesji" });
   }
   const { _id, username, phoneNumber, avatar } = req.session.user;
-  console.log()
-  console.log('getUser req.session', req.session.user);  
   res.status(200).send({ _id, username, phoneNumber, avatar});
 };
 
