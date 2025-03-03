@@ -21,6 +21,8 @@ app.use(cors({
 );
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
 const MONGO_URL = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.7ghve.mongodb.net/NoticeBoard?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -37,13 +39,9 @@ app.use(session({
 app.use('/api/ads', noticesRoutes);
 app.use('/auth', authRoutes);
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/dist/index.html'));
 });
-
-app.use(express.static(path.join(__dirname, '/public')));
 
 app.use((req, res) => {
   res.status(404).send('404 not found...');
