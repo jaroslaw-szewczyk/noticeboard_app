@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { TextField, Button, Container, Typography, Box, CircularProgress, Alert } from "@mui/material";
+import { loadAdsRequest } from "../../redux/adsRedux";
 
 import { API_URL } from "../../../config";
 
@@ -12,6 +13,8 @@ const Add = () => {
   const [price, setPrice] = useState(0);
   const [location, setLocation] = useState('');
   const [status, setStatus] = useState(null);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +40,7 @@ const Add = () => {
     await fetch(`${API_URL}/api/ads`, options)
       .then( res => {
         if(res.status === 200) {
+          dispatch(loadAdsRequest());
           setStatus('success');
         } else if (res.status === 400) {
           setStatus('clientError');

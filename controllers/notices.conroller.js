@@ -24,7 +24,9 @@ exports.getById = async (req, res) => {
 };
 
 exports.search = async (req, res) => {
+  console.log('req.params.searchPhrase',req.params.searchPhrase);
   try {
+    console.log(await Notice.find({ title: { $regex: req.params.searchPhrase }}));
     res.json(await Notice.find({ title: { $regex: req.params.searchPhrase }}))
   } 
   catch(err) {
@@ -33,20 +35,24 @@ exports.search = async (req, res) => {
 }
 
 exports.addOne = async (req, res) => {
+
+  
   try {
     const { title, text, date, price, location } = req.body;
     const author = req.session.user.id;
-    
+    console.log('hello author', author);
+    console.log('req.file.filename',req.file.filename)
+
     const fileType =  req.file ? await getImageFileType(req.file) : 'unknown';
-  
+
     if(title && typeof title === 'string' 
       && text && typeof text === 'string' 
       && date && typeof date === 'string'
       && price && typeof price === 'string'
       && location && typeof location === 'string'
       && author && typeof author === 'string'
-      && req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType)) {
-
+      && req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType)) { 
+       
         const newNotice = new Notice({ 
           title: title, 
           text: text,
@@ -56,7 +62,9 @@ exports.addOne = async (req, res) => {
           image: req.file.filename,
           author: author
         });
+        
         await newNotice.save();
+        
         return res.json({ message: 'OK' });    
     } else {
       fs.unlinkSync(`./public/uploads/${req.file.filename}`);

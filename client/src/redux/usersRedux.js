@@ -31,6 +31,7 @@ export const loadUserRequest = () => {
   return async dispatch => {
     try {
       let res = await axios.get(`${API_URL}/auth/user`, { withCredentials: true });
+      console.log(res);
       dispatch(loadUser(res.data));
     } catch (e) {
       dispatch(errorRequest({ name: 'LOAD_ADS', error: e.message }));

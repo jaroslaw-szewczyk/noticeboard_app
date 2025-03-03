@@ -33,7 +33,8 @@ app.use(session({
   secret: `${secret}`, 
   store: MongoStore.create({ mongoUrl: MONGO_URL }), 
   resave: false, 
-  saveUninitialized: false,
+  saveUninitialized: true,
+  cookie: { secure: false, httpOnly: true, maxAge: 1000 * 60 * 60 * 24 }
 }));
 
 app.use('/api/ads', noticesRoutes);

@@ -3,19 +3,20 @@ import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Home from './components/Home/Home';
-import Login from './components/Login/LogIn';
+import Login from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
 import Add from './components/Add/add';
 import Edit from './components/Edit/Edit';
 import LogOut from './components/LogOut/LogOut'
+import Navbar from './components/Nav/Navbar';
+import EditAd from './components/EditAd/EditAd';
+import Delete from './components/Delete/Delete';
+import SearchResult from './components/SearchResult/SearchResult';
+import Footer from './components/Footer/Footer';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import Navbar from './components/Nav/Navbar';
 import CardDeets from './components/CardDeets/CardDeets';
-import EditAd from './components/EditAd/EditAd';
-import Delete from './components/Delete/delete';
-import SearchResult from './components/SearchResult/SearchResult';
 
 import { loadUserRequest } from './redux/usersRedux';
 import { loadAdsRequest } from "./redux/adsRedux";
@@ -58,7 +59,7 @@ const App = () => {
         <Route path="/cardDeets/:id" element={<CardDeets signInProp={signIn}/>} />
         <Route path="/SearchResult" element={<SearchResult />} />
       </Routes>
-      
+      <Footer />
     </Container>
   </>
   )

@@ -15,6 +15,7 @@ const Search = () => {
     fetch(`${API_URL}/api/ads/search/${searchPhrase}`)
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         navigate('/searchResult', { state: { results: data } });
       })
   };

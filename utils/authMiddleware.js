@@ -7,6 +7,8 @@ const authMiddleware = async (req, res, next) => {
 
       // find last session record in db
       const sessionRecord = await Session.findOne({});
+      
+      console.log('authMidelware, sessionRecord',sessionRecord)
 
       // if session is not found
       // return 401 status and message
@@ -17,7 +19,7 @@ const authMiddleware = async (req, res, next) => {
       const sessionData = JSON.parse(sessionRecord.session);
       
       req.session.user = {
-        id: sessionData.user._id,
+        id: sessionData.user.id,
         username: sessionData.user.username,
       }
       
