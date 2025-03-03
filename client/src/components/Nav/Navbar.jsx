@@ -83,14 +83,14 @@ const Navbar = ({ signInProp }) => {
                   <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Log out</Typography>
                 </NavLink>
               ) : (
-                <>
+                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1}}>
                   <NavLink to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Log in</Typography>
                   </NavLink>
                   <NavLink to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>Register</Typography>
                   </NavLink>
-                </>
+                </Box>
               )}
             </MenuItem>
           </Menu>
